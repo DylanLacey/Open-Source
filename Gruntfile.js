@@ -1,3 +1,12 @@
+var 
+    grunt       = require('grunt')
+  , readJSON    = grunt.file.readJSON
+  , opensauceID = readJSON('private/open-sauce-identification.json')
+
+  , opensauce_username = process.env.SAUCE_USERNAME   || opensauceID.username
+  , opensauce_key      = process.env.SAUCE_ACCESS_KEY || opensauceID.key
+;
+
 module.exports = function (grunt) {
   var browsers = [{
     browserName: 'firefox',
@@ -33,13 +42,15 @@ module.exports = function (grunt) {
     'saucelabs-jasmine': {
       all: {
         options: {
+          username: opensauce_username, 
+          key     : opensauce_key, 
           urls: [
-            'http://127.0.0.1:9999/SpecRunner.html',
-            'http://127.0.0.1:9999/SpecRunnerDos.html'
+            'http://127.0.0.1:9999/spec/SpecRunner.html',
+            'http://127.0.0.1:9999/spec/SpecRunnerDos.html'
           ],
           browsers: browsers,
           build: process.env.TRAVIS_JOB_ID,
-          testname: 'jasmine tests',
+          testname: 'backwards.js tests',
           throttled: 3,
           sauceConfig: {
             'video-upload-on-pass': false

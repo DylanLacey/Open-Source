@@ -17,6 +17,10 @@
   'use strict';
   
   /* TODOs
+
+   * Test Results: 
+      - Linux, Chrome - Promise is not defined
+
    * Make special-methods for: 
       - hasNativeMethod(x.map, function(){}) If the native method exists then return x.map(f), else return polyfill(f, x)
       - either
@@ -60,8 +64,8 @@
   }; 
 
   //+ autoCurry :: Function -> Number -> Function
-  autoCurry = function (f, length) {
-    length = length || f.length; 
+  autoCurry = function (f, length) { 
+    length = length || f.length;
     var newFunction = function () {
       if (arguments.length < length) {
         return autoCurry(
@@ -128,7 +132,7 @@
   }()); 
   
   //+ isArray :: a -> Boolean
-  isArray = module.isArray = Array.isArray || isTypeOf('Array');
+  isArray = module.isArray = Array.isArray || isTypeOf('Array');
   
   //+ isBoolean :: a -> Boolean
   isBoolean = module.isBoolean = function (x) {
@@ -178,7 +182,9 @@
   isString = module.isString = isTypeOf('String');
   
   //+ isUndefined :: a -> Boolean
-  isUndefined = module.isUndefined = function (x) { return x === void 0 || isTypeOf('Undefined', x); };
+  isUndefined = module.isUndefined = function (x) {
+    return x === void 0 || isTypeOf('Undefined', x);
+  };
   
   //+ toArray :: a -> [b]
   toArray = function(x) {
