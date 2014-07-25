@@ -101,17 +101,40 @@ describe(name, function () {
   });
   
   describe('isArray', function () {
-    beforeEach(function () { method = module.isArray; });
-    it('should be a function', function () { expect(typeof method).toBe('function'); });
-    it('should return false if passed an argument that is an argument-array', function () { expect(method(arguments)).toBe(false) });
-    it('should return true if passed an argument that is an array', function () { expect(method([])).toBe(true) });
-    it('should return false if passed an argument that is an boolean', function () { expect(method(true)).toBe(false) });
-    it('should return false if passed an argument that is a function', function () { expect(method(function(){})).toBe(false) });
-    it('should return false if passed an argument that is a number', function () { expect(method(1)).toBe(false) });
-    it('should return false if passed an argument that is an object', function () { expect(method({})).toBe(false) });
-    it('should return false if passed an argument that is a string', function () { expect(method('test')).toBe(false) });
-    it('should return false if passed an argument that is null', function () { expect(method(null)).toBe(false) });
-    it('should return false if passed an argument that is undefined', function () { expect(method(undefined)).toBe(false) });
+    beforeEach(function () {
+      method = module.isArray;
+    });
+    
+    it('should be a function', function () {
+      expect(typeof method).toBe('function');
+    });
+    it('should return false if passed an argument that is an argument-array', function () {
+      expect(method(arguments)).toBe(false)
+    });
+    it('should return true if passed an argument that is an array', function () {
+      expect(method([])).toBe(true)
+    });
+    it('should return false if passed an argument that is an boolean', function () {
+      expect(method(true)).toBe(false)
+    });
+    it('should return false if passed an argument that is a function', function () {
+      expect(method(function(){})).toBe(false)
+    });
+    it('should return false if passed an argument that is a number', function () {
+      expect(method(1)).toBe(false)
+    });
+    it('should return false if passed an argument that is an object', function () {
+      expect(method({})).toBe(false)
+    });
+    it('should return false if passed an argument that is a string', function () {
+      expect(method('test')).toBe(false)
+    });
+    it('should return false if passed an argument that is null', function () {
+      expect(method(null)).toBe(false)
+    });
+    it('should return false if passed an argument that is undefined', function () {
+      expect(method(undefined)).toBe(false)
+    });
   });
   
   describe('isBoolean', function () {
@@ -336,13 +359,30 @@ describe(name, function () {
       array    = method(f, oldArray);
       oldObj   = { uid: 123 };
       obj      = method(f, oldObj);
+
+      // Promise  = Promise || RSVP.Promise;
       
-//       promise  = function (n) {
-//         return new Promise(function (resolve, reject) {
-// //          setTimeout(resolve(4), 500);
-//           resolve(n);
-//         });
-      };
+      // promise  = function (n) {
+      //   return new RSVP.Promise(function (resolve, reject) {
+      //     setTimeout(resolve(n), 500);
+      //     console.log('Promise value = ' + n);
+      //     // resolve(n);
+      //   });
+      // };
+
+      // promise = function (n) {
+      //   return new Promise(function (resolve, reject) {
+      //     resolve(n);
+      //   });
+      // };
+
+      // promise = function (n) {
+      //   // var res = $.Deferred();
+      //   var res = $.when(n);
+      //   // setTimeout(res.resolve(n), 10);
+      //   // res.resolve(4);
+      //   return res;
+      // };
     });
 
     it('should be a function', function () { expect(typeof method).toBe('function'); });
@@ -360,14 +400,20 @@ describe(name, function () {
     it('should be able to map over a number', function () { expect(method(f, 1)).toBe(2); });
     it('should be able to map over a string', function () { expect(method(f, 'test')).toBe('test1'); });
     // it('should be able to map over a promise', function () {
-    //   var asdf = 4, test;
+    //   var asdf = window.asdf = 4, test;
       
     //   runs(function () {
-    //     test = method(function (x) { return asdf = ++x; }, promise(asdf));
+    //     asdf = 4;
+    //     test = method(function (x) { asdf = x+1; }, promise(asdf));
     //     expect(asdf).toBe(4);
+    //     promise(4).then(function (success) {
+    //       asdf = 'success';
+    //     }, function (e) {
+    //       throw e;
+    //     });
     //   });
       
-    //   waits(10);
+    //   waits(100);
     //   runs(function () {
     //     expect(asdf).toBe(5);
     //     expect(module.isPromise(test)).toBe(true);

@@ -5,28 +5,42 @@ var
 
   , opensauce_username = process.env.SAUCE_USERNAME   || opensauceID.username
   , opensauce_key      = process.env.SAUCE_ACCESS_KEY || opensauceID.key
+
+  , browsers = []
 ;
 
+browsers.push({
+  browserName: 'firefox', 
+  version    : '19', 
+  platform   : 'XP'
+});
+
+browsers.push({
+  browserName: 'internet explorer', 
+  version    : '6', 
+  platform   : 'XP'
+});
+
 module.exports = function (grunt) {
-  var browsers = [{
-    browserName: 'firefox',
-    version: '19',
-    platform: 'XP'
-  }, {
-    browserName: 'googlechrome',
-    platform: 'XP'
-  }, {
-    browserName: 'googlechrome',
-    platform: 'linux'
-  }, {
-    browserName: 'internet explorer',
-    platform: 'WIN8',
-    version: '10'
-  }, {
-    browserName: 'internet explorer',
-    platform: 'VISTA',
-    version: '9'
-  }];
+  // var browsers = [{
+  //   browserName: 'firefox',
+  //   version: '19',
+  //   platform: 'XP'
+  // }, {
+  //   browserName: 'googlechrome',
+  //   platform: 'XP'
+  // }, {
+  //   browserName: 'googlechrome',
+  //   platform: 'linux'
+  // }, {
+  //   browserName: 'internet explorer',
+  //   platform: 'WIN8',
+  //   version: '10'
+  // }, {
+  //   browserName: 'internet explorer',
+  //   platform: 'VISTA',
+  //   version: '9'
+  // }];
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
