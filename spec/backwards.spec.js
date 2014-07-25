@@ -246,20 +246,20 @@ describe(name, function () {
       minusTwo = function (x) { return x-2 };
       addOne   = function (x) { return x+1 };
       value    = module.map(method(addOne, minusTwo), oldValue);
-      promise  = function (n) {
-        return new Promise(function (resolve, reject) {
-//          setTimeout(resolve(4), 500);
-          resolve(4);
-        });
-      };
-      respond_promise = function (x) {
-        return x.then(function (resolve) {
-          return resolve;
-        }, function (error) {
-          throw error;
-        });
-        return 4;
-      };
+//       promise  = function (n) {
+//         return new Promise(function (resolve, reject) {
+// //          setTimeout(resolve(4), 500);
+//           resolve(4);
+//         });
+//       };
+//       respond_promise = function (x) {
+//         return x.then(function (resolve) {
+//           return resolve;
+//         }, function (error) {
+//           throw error;
+//         });
+//         return 4;
+//       };
     });
 
     it('should be a function', function () { expect(typeof method).toBe('function'); });
