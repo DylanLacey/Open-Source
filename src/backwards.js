@@ -302,17 +302,17 @@
     return result;
   }.autoCurry();
   
-  // module.either = function (x, y) {
-  //   return y ? y : x;
-  // }.autoCurry();
-
   module.either = function (x, y) {
-    if (y && y !== null && y !== undefined && y !== '') {
-      return y;
-    } else {
-      return x;
-    }
+    return y ? y : x;
   }.autoCurry();
+
+  // module.either = function (x, y) {
+  //   if (y && y !== null && y !== undefined && y !== '') {
+  //     return y;
+  //   } else {
+  //     return x;
+  //   }
+  // }.autoCurry();
   
   //+ pluck :: String|Number -> a -> a
   module.pluck = function (prop, x) { return x[prop]; }.autoCurry(); 

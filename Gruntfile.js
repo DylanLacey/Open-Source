@@ -26,7 +26,7 @@ var
 
 browsers.push({
   browserName: 'internet explorer', 
-  version    : '7', 
+  version    : '8', 
   platform   : 'XP'
 });
 
@@ -59,7 +59,15 @@ module.exports = function (grunt) {
           base: '',
           port: 9999
         }
-      }
+      } 
+
+      // , test: {
+      //   options: {
+      //     base: '', 
+      //     port: 9999, 
+      //     keepalive: true
+      //   }
+      // }
     },
 
     'saucelabs-jasmine': {
@@ -68,8 +76,11 @@ module.exports = function (grunt) {
           username: opensauce_username, 
           key     : opensauce_key, 
           urls: [
-            'http://127.0.0.1:9999/spec/SpecRunner.html'
+            // 'http://127.0.0.1:9999/spec/SpecRunner.html'
             // , 'http://127.0.0.1:9999/spec/SpecRunnerDos.html'
+            'http://127.0.0.1:9999/spec/backwards.isArguments.spec.html', 
+            'http://127.0.0.1:9999/spec/backwards.isArray.spec.html', 
+            'http://127.0.0.1:9999/spec/backwards.isBoolean.spec.html'
           ],
           browsers: browsers,
           build: process.env.TRAVIS_JOB_ID,
@@ -92,4 +103,5 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', ['connect', 'saucelabs-jasmine']);
   grunt.registerTask('test', ['connect', 'saucelabs-jasmine']);
+  grunt.registerTask('server', ['connect:test']);
 };
