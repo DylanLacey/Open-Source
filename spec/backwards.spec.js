@@ -1,70 +1,71 @@
-var name = 'backwards', 
-    module = this[name], 
+var name   = 'backwards', 
+    // module = this[name], 
+    module = backwards, 
     method, value, expected, 
     oldArray, array, oldObj, obj, f;
 
 describe(name, function () {
   
-  describe('whatTypeIs', function () {
-    beforeEach(function () {
-      method = module.whatTypeIs;
-    });
+  // describe('whatTypeIs', function () {
+  //   beforeEach(function () {
+  //     method = module.whatTypeIs;
+  //   });
 
-    it('should be a function', function () {
-      expect(typeof method).toBe('function');
-    });
-    it('should return "arguments" if given an Arguments-array', function () {
-      expect(method(arguments)).toBe('arguments'); 
-    });
-    it('should return "array" if given an Array literal', function () {
-      expect(method([])).toBe('array');
-    });
-    it('should return "array" if given an Array object', function () {
-      expect(method(new Array(1, 2, 3))).toBe('array');
-    });
-    it('should return "boolean" if given a Boolean primitive', function () {
-      expect(method(true)).toBe('boolean');
-    });
-    it('should return "boolean" if given a Boolean obect', function () {
-      expect(method(new Boolean(true))).toBe('boolean');
-    });
-    it('should return "function" if given a Function literal', function () {
-      expect(method(function(){})).toBe('function');
-    });
-    it('should return "function" if given a Function object', function () {
-      expect(method(new Function())).toBe('function');
-    });
-    it('should return "number" if given a Number primitive', function () {
-      expect(method(100)).toBe('number');
-    });
-    it('should return "number" if given a Number object', function () {
-      expect(method(new Number(-100))).toBe('number');
-    });
-    it('should return "object" if given an Object literal', function () {
-      expect(method({})).toBe('object');
-    });
-    it('should return "object" if given an Object object', function () {
-      expect(method(new Object())).toBe('object');
-    });
-    it('should return "string" if given a String primitive', function () {
-      expect(method('test')).toBe('string');
-    });
-    it('should return "string" if given a String object', function () {
-      expect(method(new String('test'))).toBe('string');
-    });
-    it('should return "null" if given a Null', function () {
-      expect(method(null)).toBe('null');
-    });
-    it('should return "undefined" if given undefined / void 0', function () {
-      expect(method(undefined)).toBe('undefined');
-      expect(method(void 0)).toBe('undefined');
-    });
-    it('should return the whole string if the object has a custom toString method', function () {
-      var CustomObject = function () {};
-      CustomObject.prototype.toString = function () { return 'cust0m'; };
-      expect(method(new CustomObject())).toBe('cust0m');
-    });
-  });
+  //   it('should be a function', function () {
+  //     expect(typeof method).toBe('function');
+  //   });
+  //   it('should return "arguments" if given an Arguments-array', function () {
+  //     expect(method(arguments)).toBe('arguments'); 
+  //   });
+  //   it('should return "array" if given an Array literal', function () {
+  //     expect(method([])).toBe('array');
+  //   });
+  //   it('should return "array" if given an Array object', function () {
+  //     expect(method(new Array(1, 2, 3))).toBe('array');
+  //   });
+  //   it('should return "boolean" if given a Boolean primitive', function () {
+  //     expect(method(true)).toBe('boolean');
+  //   });
+  //   it('should return "boolean" if given a Boolean obect', function () {
+  //     expect(method(new Boolean(true))).toBe('boolean');
+  //   });
+  //   it('should return "function" if given a Function literal', function () {
+  //     expect(method(function(){})).toBe('function');
+  //   });
+  //   it('should return "function" if given a Function object', function () {
+  //     expect(method(new Function())).toBe('function');
+  //   });
+  //   it('should return "number" if given a Number primitive', function () {
+  //     expect(method(100)).toBe('number');
+  //   });
+  //   it('should return "number" if given a Number object', function () {
+  //     expect(method(new Number(-100))).toBe('number');
+  //   });
+  //   it('should return "object" if given an Object literal', function () {
+  //     expect(method({})).toBe('object');
+  //   });
+  //   it('should return "object" if given an Object object', function () {
+  //     expect(method(new Object())).toBe('object');
+  //   });
+  //   it('should return "string" if given a String primitive', function () {
+  //     expect(method('test')).toBe('string');
+  //   });
+  //   it('should return "string" if given a String object', function () {
+  //     expect(method(new String('test'))).toBe('string');
+  //   });
+  //   it('should return "null" if given a Null', function () {
+  //     expect(method(null)).toBe('null');
+  //   });
+  //   it('should return "undefined" if given undefined / void 0', function () {
+  //     expect(method(undefined)).toBe('undefined');
+  //     expect(method(void 0)).toBe('undefined');
+  //   });
+  //   it('should return the whole string if the object has a custom toString method', function () {
+  //     var CustomObject = function () {};
+  //     CustomObject.prototype.toString = function () { return 'cust0m'; };
+  //     expect(method(new CustomObject())).toBe('cust0m');
+  //   });
+  // });
   
   describe('isArguments', function () {
     beforeEach(function () { method = module.isArguments; });

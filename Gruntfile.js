@@ -9,15 +9,24 @@ var
   , browsers = []
 ;
 
-browsers.push({
-  browserName: 'firefox', 
-  version    : '19', 
-  platform   : 'XP'
-});
+// curl -X POST https://saucelabs.com/rest/v1/Omega3k/js-tests -u Omega3k:1f241b16-57f5-43a6-84d4-2dd7be8d9a9a -d platforms='[["Windows 8", "internet explorer", "10"], ["OS X 10.8", "safari", "6"]]' -d url="https://saucelabs.com/test_helpers/front_tests/index.html" -d framework=jasmine -d name=sauce-sample-test
+
+
+// browsers.push({
+//   browserName: 'firefox', 
+//   version    : '19', 
+//   platform   : 'XP'
+// });
+
+// browsers.push({
+//   browserName: 'internet explorer', 
+//   version    : '6', 
+//   platform   : 'XP'
+// });
 
 browsers.push({
   browserName: 'internet explorer', 
-  version    : '6', 
+  version    : '7', 
   platform   : 'XP'
 });
 
@@ -59,12 +68,15 @@ module.exports = function (grunt) {
           username: opensauce_username, 
           key     : opensauce_key, 
           urls: [
-            'http://127.0.0.1:9999/spec/SpecRunner.html',
-            'http://127.0.0.1:9999/spec/SpecRunnerDos.html'
+            'http://127.0.0.1:9999/spec/SpecRunner.html'
+            // , 'http://127.0.0.1:9999/spec/SpecRunnerDos.html'
           ],
           browsers: browsers,
           build: process.env.TRAVIS_JOB_ID,
           testname: 'backwards.js tests',
+          // tunnelTimeout: 5, 
+          // concurrency: 3
+          passed: true, 
           throttled: 3,
           sauceConfig: {
             'video-upload-on-pass': false

@@ -98,22 +98,22 @@
   };
   
   //+ whatTypeIs :: a -> String
-  module.whatTypeIs = function (x) {
-    var value  = toString.call(x), 
-        test   = value.substring(0, 8), 
-        result = value.substring(8, value.length-1).toLowerCase();
+  // module.whatTypeIs = function (x) {
+  //   var value  = toString.call(x), 
+  //       test   = value.substring(0, 8), 
+  //       result = value.substring(8, value.length-1).toLowerCase();
     
-    if (result !== 'object') {
-      return result;
-    } else {
-      value = x.toString();
-      if (value.substring(0, 8) === '[object ') { 
-        return result; 
-      } else {
-        return value ? value : 'undefined';
-      }
-    }
-  };
+  //   if (result !== 'object') {
+  //     return result;
+  //   } else {
+  //     value = x.toString();
+  //     if (value.substring(0, 8) === '[object ') { 
+  //       return result; 
+  //     } else {
+  //       return value ? value : 'undefined';
+  //     }
+  //   }
+  // };
   
   //+ isTypeOf :: String -> a -> Boolean
   isTypeOf = module.isTypeOf = function (type, x) { 
@@ -126,7 +126,7 @@
       return isTypeOf('Arguments');
     } else {
       return function (x) {
-        return x && x.hasOwnProperty('callee');
+        return x !== null && x !== void 0 && x.hasOwnProperty('callee');
       };
     }
   }()); 
@@ -157,17 +157,29 @@
   }());
   
   //+ isNaN :: a -> Boolean
-  isNaN = module.isNaN = function (x) { return isNumber(x) && x !== +x; };
+  isNaN = module.isNaN = function (x) {
+    return isNumber(x) && x !== +x;
+  };
   
   //+ isNull :: a -> Boolean
 //  isNull = module.isNull = isTypeOf('Null');
-  isNull = module.isNull = function (x) { return x === null || isTypeOf('Null', x); };
+  isNull = module.isNull = function (x) {
+    return x === null || isTypeOf('Null', x);
+  };
   
   //+ isNumber :: a -> Boolean
   isNumber = module.isNumber = isTypeOf('Number');
   
   //+ isObject :: a -> Boolean
-  isObject = module.isObject = isTypeOf('Object');
+  isObject = module.isObject = function (x) {
+    if (x === null || x === void 0 || isArguments(x)) {
+      return false;
+    } else {
+      return isTypeOf('Object', x);
+    }
+  };
+  isTypeOf('Object');
+  // isObject = module.isObject = isTypeOf('Object');
 //  isObject = module.isObject = function (x) {
 //    return typeof x === 'function' || typeof x === 'object' && !!x;
 //  };
@@ -212,7 +224,7 @@
   
   //+ arrayMap :: Function -> Array -> a
   arrayMap = function (f, x) {
-    var result = [], i;
+    var result = [], i, length;
     
     if (x.forEach) {
       x.forEach(function (val, i, array) {
@@ -260,20 +272,46 @@
   
   //+ filter :: Function -> Array -> Array
   module.filter = function (f, x) {
-    var result = [], tmp; 
+    var result = [], i, length, tmp; 
 
-    map(function (val, i, obj) {
-      tmp = f(val, i, obj);
-      
-      if (tmp) {
-        module.push(val, result);
+    if (x.filter) {
+      return x.filter(f);
+    } else {
+      length = x.length;
+      for (i = 0; i < length; i++) {
+        tmp = f(x[i], i, x);
+        if (tmp) {
+          result.push(x[i]);
+        }
       }
-    }, x);
+      return result;
+    }
+
+    // map(function (val, i, obj) {
+    //   tmp = f(val, i, obj);
+      
+    //   if (tmp) {
+    //     module.push(val, result);
+    //   }
+    // }, x);
+
+    length = x.length;
+    for (i = 0; i < length; i++) {
+      result[i] = f(x[i], i, x);
+    }
     return result;
   }.autoCurry();
   
+  // module.either = function (x, y) {
+  //   return y ? y : x;
+  // }.autoCurry();
+
   module.either = function (x, y) {
-    return y ? y : x;
+    if (y && y !== null && y !== undefined && y !== '') {
+      return y;
+    } else {
+      return x;
+    }
   }.autoCurry();
   
   //+ pluck :: String|Number -> a -> a
